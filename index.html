@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mon CV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1e2a3a;
+      --navy2:  #263040;
+      --accent: #c8a96e;
+      --light:  #f4f6f8;
+      --white:  #ffffff;
+      --text:   #2d3748;
+      --muted:  #718096;
+      --sidebar-w: 260px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--light);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px 16px;
+    }
+
+    /* ── CARD ── */
+    .cv {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      grid-template-rows: auto 1fr;
+      width: 794px;
+      min-height: 1123px;
+      max-width: 100%;
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.15);
+    }
+
+    /* ══════════════════════════════════
+       HEADER  (spans full width)
+    ══════════════════════════════════ */
+    .cv-header {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      background: var(--white);
+    }
+
+    .header-photo {
+      background: var(--navy);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 28px 20px 0;
+    }
+
+    .header-photo img,
+    .header-photo .photo-placeholder {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 20%;
+      border: 4px solid var(--white);
+      background: #a0aec0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--white);
+      text-align: center;
+    }
+
+    .header-name {
+      background: var(--white);
+      padding: 36px 36px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .header-name h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      line-height: 1.1;
+      color: var(--navy);
+      letter-spacing: -1px;
+    }
+
+    .header-name .title {
+      font-size: .78rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    /* ── CONTACT BAR ── */
+    .contact-bar {
+      grid-column: 1 / -1;
+      background: var(--navy);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 24px;
+      padding: 14px 36px;
+      align-items: center;
+    }
+
+    .contact-bar a,
+    .contact-bar span {
+      color: var(--white);
+      font-size: .78rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      opacity: .9;
+    }
+
+    .contact-bar svg { flex-shrink: 0; }
+
+    /* ══════════════════════════════════
+       SIDEBAR
+    ══════════════════════════════════ */
+    .sidebar {
+      background: var(--navy2);
+      padding: 32px 24px 40px;
+      color: var(--white);
+    }
+
+    .sidebar-section { margin-bottom: 32px; }
+
+    .sidebar-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      letter-spacing: .03em;
+      color: var(--white);
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    /* Education */
+    .edu-item { margin-bottom: 18px; }
+    .edu-item strong { font-size: .88rem; display: block; color: var(--white); }
+    .edu-item span  { font-size: .75rem; color: rgba(255,255,255,.6); line-height: 1.6; display: block; }
+
+    /* Certifications */
+    .cert-list { list-style: none; padding: 0; }
+    .cert-list li {
+      font-size: .78rem;
+      color: rgba(255,255,255,.8);
+      padding-left: 14px;
+      position: relative;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .cert-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* Skills */
+    .skill-tag {
+      display: inline-block;
+      font-size: .74rem;
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.85);
+      border-radius: 4px;
+      padding: 4px 10px;
+      margin: 3px 3px 3px 0;
+    }
+
+    /* Languages */
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .lang-item span { font-size: .8rem; color: rgba(255,255,255,.85); }
+    .lang-bar {
+      width: 90px;
+      height: 4px;
+      background: rgba(255,255,255,.15);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .lang-bar-fill { height: 100%; background: var(--accent); border-radius: 2px; }
+
+    /* ══════════════════════════════════
+       MAIN CONTENT
+    ══════════════════════════════════ */
+    .main {
+      padding: 36px 40px 40px;
+      background: var(--white);
+    }
+
+    .section { margin-bottom: 32px; }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--navy) 0%, transparent 100%);
+      margin-bottom: 16px;
+    }
+
+    /* About */
+    .about-text {
+      font-size: .84rem;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    /* Experience */
+    .exp-item { margin-bottom: 22px; }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .exp-header strong {
+      font-size: .93rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .exp-date {
+      font-size: .74rem;
+      color: var(--muted);
+      white-space: nowrap;
+      margin-left: 12px;
+    }
+
+    .exp-company {
+      font-size: .78rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 6px;
+      letter-spacing: .02em;
+    }
+
+    .exp-desc {
+      font-size: .80rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* References */
+    .ref-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .ref-card {
+      background: var(--light);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 16px;
+    }
+
+    .ref-card strong { font-size: .85rem; display: block; color: var(--navy); }
+    .ref-card .ref-role { font-size: .73rem; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+    .ref-card .ref-company { font-size: .73rem; color: var(--muted); margin-bottom: 6px; }
+    .ref-card .ref-phone { font-size: .73rem; color: var(--muted); }
+
+    /* ── responsive ── */
+    @media (max-width: 640px) {
+      body { padding: 0; }
+      .cv {
+        grid-template-columns: 1fr;
+        border-radius: 0;
+        width: 100%;
+      }
+      .cv-header { grid-template-columns: 1fr; }
+      .header-photo { padding: 24px 20px 0; justify-content: flex-start; }
+      .header-name { padding: 20px 24px; }
+      .header-name h1 { font-size: 1.9rem; }
+      .contact-bar { padding: 12px 20px; }
+      .sidebar { padding: 24px 20px; }
+      .main { padding: 24px 20px; }
+      .ref-grid { grid-template-columns: 1fr; }
+    }
+
+    .cert-list a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+    }
+
+    .cert-list a:hover {
+        color: var(--accent);
+        text-decoration: underline;
+    }
+
+    .download-btn {
+  background: var(--accent);
+  color: var(--navy) !important;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.download-btn:hover {
+  opacity: 0.8;
+}
+
+@media print {
+  .download-btn {
+    display: none !important;
+  }
+}
+
+@media print {
+  body {
+    background: white;
+    padding: 0;
+  }
+
+  .cv {
+    box-shadow: none;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .download-btn {
+    display: none !important;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+<div class="cv">
+
+  <!-- ══ HEADER ══ -->
+  <div class="cv-header">
+
+    <div class="header-photo">
+      <img src="./photo-profil.png" alt="Photo de profil" />
+    </div>
+
+    <div class="header-name">
+      <h1>Mamadou<br>DIA</h1>
+      <p class="title">Etudiant en Licence 2 Genie Logiciel et Systeme d'Information À l'École Supérieure Polytechnique (ESP) de Dakar</p>
+    </div>
+
+  </div>
+
+  <!-- ══ CONTACT BAR ══ -->
+  <div class="contact-bar">
+    <a href="tel:+221779954040">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      +221 77 995 40 40
+    </a>
+    <a href="mailto:mamadoudia@esp.sn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      mamadoudia@esp.sn
+    </a>
+    <a href="mailto:mamemodouaminata.dia@gmail.com">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      mamemodouaminata.dia@gmail.com
+    </a>
+    <a href="https://github.com/K4izen404" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      GitHub Personnel
+    </a>
+    <a href="https://github.com/mamadou-esp" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+      GitHub Professionnel
+    </a>
+    <a href="https://linkedin.com/in/mamadou-dia-578a8a39a" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      LinkedIn
+    </a>
+    <span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+      Dakar, Sénégal
+    </span>
+
+    <!-- Telecharger le CV en PDF -->
+    <!-- <button onclick="downloadCV()" class="download-btn">
+  📄 Télécharger CV
+</button> -->
+  </div>
+
+  <!-- ══ SIDEBAR ══ -->
+  <aside class="sidebar">
+
+    <!-- FORMATIONS & DIPLÔMES -->
+    <div class="sidebar-section">
+      <h3>FORMATIONS & DIPLÔMES</h3>
+
+      <div class="edu-item">
+        <strong>Baccalauréat série S2</strong>
+        <span>Cours Privée La Source du Savoir</span>
+        <span>Juillet 2024</span>
+        <span>Jaaxay, Sénégal</span>
+      </div>
+
+    <!-- Certifications -->
+    <div class="sidebar-section">
+      <h3>Certifications</h3>
+      <ul class="cert-list">
+        <!-- Remplace les liens et les titres par tes certifications réelles en enlevant aussi les soulignages-->
+
+        <li><a href="./certifications/Huawei.png" target="_blank" >HCIA-Datacom V1.0 (French) - HUAWEI</a></li>
+        
+      </ul>
+    </div>
+
+    <!-- Compétences -->
+    <div class="sidebar-section">
+      <h3>Compétences</h3>
+      <span class="skill-tag">HTML / CSS</span>
+      <span class="skill-tag">JavaScript</span>
+      <span class="skill-tag">Java</span>
+      <span class="skill-tag">Git / GitHub</span>
+      <span class="skill-tag">PHP</span>
+      <span class="skill-tag">C</span>
+      <span class="skill-tag">SQL</span>
+      <span class="skill-tag">Services Réseaux</span>
+      <span class="skill-tag">Système Linux</span>
+      <span class="skill-tag">Travail en équipe</span>
+    </div>
+
+    <!-- Langues -->
+    <div class="sidebar-section">
+      <h3>Langues</h3>
+
+      <div class="lang-item">
+        <span>Français</span>
+        <div class="lang-bar"><div class="lang-bar-fill" style="width:95%"></div></div>
+      </div>
+      <div class="lang-item">
+        <span>Anglais</span>
+        <div class="lang-bar"><div class="lang-bar-fill" style="width:50%"></div></div>
+      </div>
+      <div class="lang-item">
+        <span>Wolof</span>
+        <div class="lang-bar"><div class="lang-bar-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+    
+
+  </aside>
+
+  <!-- ══ CONTENU PRINCIPAL ══ -->
+  <main class="main">
+
+    <!-- À propos -->
+    <div class="section">
+      <h2>À propos de moi</h2>
+      <div class="section-divider"></div>
+      <p class="about-text">
+        Étudiant en Licence 2 Génie Logiciel et Systèmes d’Information à l’ESP de Dakar,
+        je m’intéresse particulièrement au développement web, aux systèmes informatiques et aux réseaux.
+        Je maîtrise les bases du développement front-end et back-end (HTML, CSS, JavaScript, PHP)
+        ainsi que la gestion de bases de données. Actuellement à la recherche d’un stage,
+        je souhaite mettre mes compétences en pratique et contribuer à des projets concrets.
+      </p>
+    </div>
+
+    <!-- Expériences -->
+    <div class="section">
+      <h2>Expériences</h2>
+      <div class="section-divider"></div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <strong>Développeur Web – Projet de gestion (PHP / MySQL)</strong>
+          <span class="exp-date">Mars 2026</span>
+        </div>
+        <div class="exp-company">Projet académique – ESP Dakar</div>
+        <p class="exp-desc">
+          Conception et développement d'une application web de gestion avec fonctionnalités CRUD complètes 
+          (création, lecture, mise à jour, suppression).  
+          Développement du backend en PHP avec utilisation de PDO et requêtes préparées pour sécuriser les échanges 
+          avec une base de données MySQL.  
+          Mise en place de l’authentification des utilisateurs (sessions, password_hash) et validation des formulaires côté serveur.  
+          Travail collaboratif en équipe avec gestion de version via Git et organisation modulaire du code.
+        </p>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <strong>Projet Java</strong>
+          <span class="exp-date">Avril 2026</span>
+        </div>
+        <div class="exp-company">Projet académique – ESP Dakar</div>
+        <p class="exp-desc">
+          Conception d'un sytème de gestion de bibliothèque en Java.
+          Implémentation de classes pour les livres, les utilisateurs et les emprunts, avec gestion des exceptions.
+          Utilisation de la base de données pour stocker les informations.
+        </p>
+      </div>
+
+      </div>
+    </div>
+
+    <!-- Références -->
+    <!-- <div class="section">
+      <h2>Références</h2>
+      <div class="section-divider"></div>
+      <div class="ref-grid">
+        <div class="ref-card">
+          <strong>Prof. Amadou Diallo</strong>
+          <div class="ref-role">Directeur de Filière</div>
+          <div class="ref-company">Université de Dakar</div>
+          <div class="ref-phone">+221 77 XXX XX XX</div>
+        </div>
+        <div class="ref-card">
+          <strong>Fatou Sow</strong>
+          <div class="ref-role">Responsable Technique</div>
+          <div class="ref-company">Entreprise XYZ</div>
+          <div class="ref-phone">+221 78 XXX XX XX</div>
+        </div>
+      </div>
+    </div> -->
+
+  </main>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function downloadCV() {
+  const element = document.querySelector('.cv');
+  const btn = document.querySelector('.download-btn');
+  btn.style.display = 'none'; // Hide the button for PDF generation
+  const opt = {
+    margin: 0,
+    filename: 'CV_Mamadou_DIA.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(element).save().then(() => {
+    btn.style.display = ''; // Show the button back
+  });
+}
+</script>
+</body>
+</html>
